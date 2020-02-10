@@ -58,10 +58,6 @@ def parse_config(config_list):
     config_dict['MsgBoxText'] = config_list[13]
     return config_dict
 
-def decrypt_XOR(enckey, data):                    
-    cipher = XOR.new(enckey) # set the cipher
-    return cipher.decrypt(data) # decrpyt the data
-    
 
 def snortRule(md5, config_dict):
     rules = []
