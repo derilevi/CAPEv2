@@ -10,7 +10,7 @@ except ImportError:
     print("Missed dependency: pip3 install proxmoxer==1.0.3")
 
 from lib.cuckoo.common.abstracts import Machinery
-from lib.cuckoo.common.config import config
+from lib.cuckoo.common.config import Config
 from lib.cuckoo.common.exceptions import CuckooCriticalError
 from lib.cuckoo.common.exceptions import CuckooMachineError
 
@@ -86,7 +86,7 @@ class Proxmox(Machinery):
         @param taskid: id of Proxmox task to wait for
         @raise CuckooMachineError: if task status cannot be determined."""
         if not self.node:
-            raise CuckcooMachineError(
+            raise CuckooMachineError(
                 "BUG: Target Proxmox node not initialized.")
 
         elapsed = 0
@@ -121,7 +121,7 @@ class Proxmox(Machinery):
             return snapshot
 
         if not self.vm:
-            raise CuckcooMachineError("BUG: Target VM not initialized.")
+            raise CuckooMachineError("BUG: Target VM not initialized.")
 
         # heuristically determine the most recent snapshot if no snapshot name
         # is explicitly configured.
