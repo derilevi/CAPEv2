@@ -466,7 +466,7 @@ def index(request, resubmit_hash=False):
                     else:
                         status, task_ids_tmp = download_file(False, content, request, db, task_ids, url, params, headers, "Local", filename, package, timeout, options, priority, machine,
                                                          clock, custom, memory, enforce_timeout, referrer, tags, orig_options, task_machines, static, h)
-                    if status is "ok":
+                    if status == "ok":
                         task_ids = task_ids_tmp
                     else:
                         failed_hashes.append(h)
