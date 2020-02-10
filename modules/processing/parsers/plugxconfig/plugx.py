@@ -301,8 +301,8 @@ class PlugXConfig():
                 cfg_blob = cfg_blob[4*calcsize('<L'):]
                 for i in range(4):
                     if p2p_start[i*calcsize('<L'):i*calcsize('<L')+calcsize('<L')] != "\0\0\0\0":
-                        config_output.update({'P2P Scan range %d start': (i,socket.inet_ntoa(p2p_start[i*calcsize('<L'):i*calcsize('<L')+calcsize('<L')]))})
-                        config_output.update({'P2P Scan range %d stop': (i,socket.inet_ntoa(p2p_stop[i*calcsize('<L'):i*calcsize('<L')+calcsize('<L')]))})
+                        config_output.update({'P2P Scan range %d start': (i,inet_ntoa(p2p_start[i*calcsize('<L'):i*calcsize('<L')+calcsize('<L')]))})
+                        config_output.update({'P2P Scan range %d stop': (i,inet_ntoa(p2p_stop[i*calcsize('<L'):i*calcsize('<L')+calcsize('<L')]))})
 
             if cfg_sz in (0x36a4, 0x4ea4):
                 mac_addr = cfg_blob[:6]
