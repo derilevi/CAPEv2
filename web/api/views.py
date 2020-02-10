@@ -1214,7 +1214,7 @@ def ext_tasks_search(request):
             elif option == "signame":
                 records = results_db.analysis.find({"signatures.name": {"$regex": dataarg, "$options": "-i"}}).sort([["_id", -1]])
             elif option == "malfamily":
-                records = results_db.analysis.find({"malfamily": {"$regex": value, "$options": "-i"}}).sort([["_id", -1]])
+                records = results_db.analysis.find({"malfamily": {"$regex": dataarg, "$options": "-i"}}).sort([["_id", -1]])
             elif option == "url":
                 records = results_db.analysis.find({"target.url": dataarg}).sort([["_id", -1]])
             elif option == "iconhash":
@@ -1255,72 +1255,72 @@ def ext_tasks_search(request):
                 return jsonize(resp, response=True)
 
         if es_as_db:
-            if term == "name":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.name: %s" % value)["hits"]["hits"]
-            elif term == "type":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.type: %s" % value)["hits"]["hits"]
-            elif term == "string":
-                records = es.search(index=fullidx, doc_type="analysis", q="strings: %s" % value)["hits"]["hits"]
-            elif term == "trid":
-                records = es.search(index=fullidx, doc_type="analysis", q="trid: %s" % value)["hits"]["hits"]
-            elif term == "ssdeep":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.ssdeep: %s" % value)["hits"]["hits"]
-            elif term == "crc32":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.crc32: %s" % value)["hits"]["hits"]
-            elif term == "file":
-                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.files: %s" % value)["hits"]["hits"]
-            elif term == "command":
-                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.executed_commands: %s" % value)["hits"]["hits"]
-            elif term == "resolvedapi":
-                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.resolved_apis: %s" % value)["hits"]["hits"]
-            elif term == "key":
-                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.keys: %s" % value)["hits"]["hits"]
-            elif term == "mutex":
-                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.mutex: %s" % value)["hits"]["hits"]
-            elif term == "domain":
-                records = es.search(index=fullidx, doc_type="analysis", q="network.domains.domain: %s" % value)["hits"]["hits"]
-            elif term == "ip":
-                records = es.search(index=fullidx, doc_type="analysis", q="network.hosts.ip: %s" % value)["hits"]["hits"]
-            elif term == "signature":
-                records = es.search(index=fullidx, doc_type="analysis", q="signatures.description: %s" % value)["hits"]["hits"]
-            elif term == "signame":
-                records = es.search(index=fullidx, doc_type="analysis", q="signatures.name: %s" % value)["hits"]["hits"]
-            elif term == "malfamily":
-                records = es.search(index=fullidx, doc_type="analysis", q="malfamily: %s" % value)["hits"]["hits"]
-            elif term == "url":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.url: %s" % value)["hits"]["hits"]
-            elif term == "imphash":
-                records = es.search(index=fullidx, doc_type="analysis", q="static.pe.imphash: %s" % value)["hits"]["hits"]
-            elif term == "iconhash":
-                records = es.search(index=fullidx, doc_type="analysis", q="static.pe.icon_hash: %s" % value)["hits"]["hits"]
-            elif term == "iconfuzzy":
-                records = es.search(index=fullidx, doc_type="analysis", q="static.pe.icon_fuzzy: %s" % value)["hits"]["hits"]
-            elif term == "surialert":
-                records = es.search(index=fullidx, doc_type="analysis", q="suricata.alerts.signature: %s" % value)["hits"]["hits"]
-            elif term == "surihttp":
-                records = es.search(index=fullidx, doc_type="analysis", q="suricata.http: %s" % value)["hits"]["hits"]
-            elif term == "suritls":
-                records = es.search(index=fullidx, doc_type="analysis", q="suricata.tls: %s" % value)["hits"]["hits"]
-            elif term == "clamav":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.clamav: %s" % value)["hits"]["hits"]
-            elif term == "yaraname":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.yara.name: %s" % value)["hits"]["hits"]
-            elif term == "capeyara":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.cape_yara.name: %s" % value)["hits"]["hits"]
-            elif term == "procmemyara":
-                records = es.search(index=fullidx, doc_type="analysis", q="procmemory.yara.name: %s" % value)["hits"]["hits"]
-            elif term == "virustotal":
-                records = es.search(index=fullidx, doc_type="analysis", q="virustotal.results.sig: %s" % value)["hits"]["hits"]
-            elif term == "comment":
-                records = es.search(index=fullidx, doc_type="analysis", q="info.comments.Data: %s" % value)["hits"]["hits"]
-            elif term == "md5":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.md5: %s" % value)["hits"]["hits"]
-            elif term == "sha1":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.sha1: %s" % value)["hits"]["hits"]
-            elif term == "sha256":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.sha256: %s" % value)["hits"]["hits"]
-            elif term == "sha512":
-                records = es.search(index=fullidx, doc_type="analysis", q="target.file.sha512: %s" % value)["hits"]["hits"]
+            if option == "name":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.name: %s" % dataarg)["hits"]["hits"]
+            elif option == "type":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.type: %s" % dataarg)["hits"]["hits"]
+            elif option == "string":
+                records = es.search(index=fullidx, doc_type="analysis", q="strings: %s" % dataarg)["hits"]["hits"]
+            elif option == "trid":
+                records = es.search(index=fullidx, doc_type="analysis", q="trid: %s" % dataarg)["hits"]["hits"]
+            elif option == "ssdeep":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.ssdeep: %s" % dataarg)["hits"]["hits"]
+            elif option == "crc32":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.crc32: %s" % dataarg)["hits"]["hits"]
+            elif option == "file":
+                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.files: %s" % dataarg)["hits"]["hits"]
+            elif option == "command":
+                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.executed_commands: %s" % dataarg)["hits"]["hits"]
+            elif option == "resolvedapi":
+                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.resolved_apis: %s" % dataarg)["hits"]["hits"]
+            elif option == "key":
+                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.keys: %s" % dataarg)["hits"]["hits"]
+            elif option == "mutex":
+                records = es.search(index=fullidx, doc_type="analysis", q="behavior.summary.mutex: %s" % dataarg)["hits"]["hits"]
+            elif option == "domain":
+                records = es.search(index=fullidx, doc_type="analysis", q="network.domains.domain: %s" % dataarg)["hits"]["hits"]
+            elif option == "ip":
+                records = es.search(index=fullidx, doc_type="analysis", q="network.hosts.ip: %s" % dataarg)["hits"]["hits"]
+            elif option == "signature":
+                records = es.search(index=fullidx, doc_type="analysis", q="signatures.description: %s" % dataarg)["hits"]["hits"]
+            elif option == "signame":
+                records = es.search(index=fullidx, doc_type="analysis", q="signatures.name: %s" % dataarg)["hits"]["hits"]
+            elif option == "malfamily":
+                records = es.search(index=fullidx, doc_type="analysis", q="malfamily: %s" % dataarg)["hits"]["hits"]
+            elif option == "url":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.url: %s" % dataarg)["hits"]["hits"]
+            elif option == "imphash":
+                records = es.search(index=fullidx, doc_type="analysis", q="static.pe.imphash: %s" % dataarg)["hits"]["hits"]
+            elif option == "iconhash":
+                records = es.search(index=fullidx, doc_type="analysis", q="static.pe.icon_hash: %s" % dataarg)["hits"]["hits"]
+            elif option == "iconfuzzy":
+                records = es.search(index=fullidx, doc_type="analysis", q="static.pe.icon_fuzzy: %s" % dataarg)["hits"]["hits"]
+            elif option == "surialert":
+                records = es.search(index=fullidx, doc_type="analysis", q="suricata.alerts.signature: %s" % dataarg)["hits"]["hits"]
+            elif option == "surihttp":
+                records = es.search(index=fullidx, doc_type="analysis", q="suricata.http: %s" % dataarg)["hits"]["hits"]
+            elif option == "suritls":
+                records = es.search(index=fullidx, doc_type="analysis", q="suricata.tls: %s" % dataarg)["hits"]["hits"]
+            elif option == "clamav":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.clamav: %s" % dataarg)["hits"]["hits"]
+            elif option == "yaraname":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.yara.name: %s" % dataarg)["hits"]["hits"]
+            elif option == "capeyara":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.cape_yara.name: %s" % dataarg)["hits"]["hits"]
+            elif option == "procmemyara":
+                records = es.search(index=fullidx, doc_type="analysis", q="procmemory.yara.name: %s" % dataarg)["hits"]["hits"]
+            elif option == "virustotal":
+                records = es.search(index=fullidx, doc_type="analysis", q="virustotal.results.sig: %s" % dataarg)["hits"]["hits"]
+            elif option == "comment":
+                records = es.search(index=fullidx, doc_type="analysis", q="info.comments.Data: %s" % dataarg)["hits"]["hits"]
+            elif option == "md5":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.md5: %s" % dataarg)["hits"]["hits"]
+            elif option == "sha1":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.sha1: %s" % dataarg)["hits"]["hits"]
+            elif option == "sha256":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.sha256: %s" % dataarg)["hits"]["hits"]
+            elif option == "sha512":
+                records = es.search(index=fullidx, doc_type="analysis", q="target.file.sha512: %s" % dataarg)["hits"]["hits"]
             else:
                 resp = {"error": True,
                         "error_value": "Invalid Option. '%s' is not a valid option." % option}
